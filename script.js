@@ -37,13 +37,16 @@ function handleImageUpload(event) {
 
         reader.onload = function(event) {
             const imageDisplay = document.getElementById('drop-area');
-            imageDisplay.innerHTML = ''; // 既存の画像やメッセージをクリア
+            imageDisplay.innerHTML = ''; // 既存の画像をクリア
 
             const img = new Image();
             img.src = event.target.result;
 
             img.onload = function() {
-                // 画像を表示
+                // 画面の高さの約半分より少し小さいサイズで画像を表示
+                const screenHeight = window.innerHeight;
+                img.style.height = `${Math.floor(screenHeight * 0.45)}px`; // 45% に設定
+
                 imageDisplay.appendChild(img);
             };
         };

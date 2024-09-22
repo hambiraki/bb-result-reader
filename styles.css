@@ -28,7 +28,6 @@ h1 {
 .drop-area img {
     max-width: 100%;
     height: auto;
-    display: none; /* 初期状態で非表示 */
 }
 
 .drop-area.dragover {
