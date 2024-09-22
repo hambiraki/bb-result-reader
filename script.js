@@ -43,7 +43,7 @@ function handleImageUpload(event) {
             img.src = event.target.result;
 
             img.onload = function() {
-                // 画像を追加して表示（縦横比を維持しつつ高さを40%に設定するCSSが適用される）
+                // 画像を表示
                 imageDisplay.appendChild(img);
             };
         };
@@ -54,58 +54,21 @@ function handleImageUpload(event) {
     }
 }
 
-document.getElementById('upload-btn').addEventListener('click', () => {
-    const fileInput = document.getElementById('file-upload');
-    const file = fileInput.files[0];
+// 読み込みボタンの有効化チェック
+document.getElementById('option1').addEventListener('change', validateForm);
+document.getElementById('option2').addEventListener('change', validateForm);
+document.getElementById('option3').addEventListener('change', validateForm);
 
-    if (file) {
-        const reader = new FileReader();
-        
-        // 画像ファイルを読み込んで表示する
-        reader.onload = function(event) {
-            const img = new Image();
-            img.src = event.target.result;
+function validateForm() {
+    const file = document.getElementById('file-upload').files[0];
+    const option1Checked = document.getElementById('option1').checked;
+    const option2Checked = document.getElementById('option2').checked;
+    const option3Checked = document.getElementById('option3').checked;
 
-            img.onload = function() {
-                const canvas = document.getElementById('canvas');
-                const ctx = canvas.getContext('2d');
-
-                // Canvasに画像を描画
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-
-                // 画像を処理するコード（OCRやピクセルデータの読み取りなど）をここに追加
-                // ここでは仮に固定データとして表を更新
-                updateTable([
-                    { player: '新プレイヤー1', result: '勝利' },
-                    { player: '新プレイヤー2', result: '敗北' }
-                ]);
-            };
-        };
-        
-        reader.readAsDataURL(file);
+    const loadBtn = document.getElementById('load-btn');
+    if (file && (option1Checked || option2Checked || option3Checked)) {
+        loadBtn.disabled = false;
     } else {
-        alert('画像をアップロードしてください');
+        loadBtn.disabled = true;
     }
-});
-
-// 表を更新する関数
-function updateTable(data) {
-    const tbody = document.getElementById('result-table').querySelector('tbody');
-    tbody.innerHTML = ''; // 既存の表をクリア
-
-    // 新しいデータで表を更新
-    data.forEach(item => {
-        const row = document.createElement('tr');
-        const playerCell = document.createElement('td');
-        const resultCell = document.createElement('td');
-
-        playerCell.textContent = item.player;
-        resultCell.textContent = item.result;
-
-        row.appendChild(playerCell);
-        row.appendChild(resultCell);
-        tbody.appendChild(row);
-    });
 }

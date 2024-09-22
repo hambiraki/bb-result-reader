@@ -46,6 +46,24 @@ h1 {
     margin: 0 10px;
 }
 
+.form-section {
+    margin-bottom: 20px;
+}
+
+.load-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.load-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 table {
     width: 50%;
     margin: 0 auto 20px;
@@ -59,16 +77,4 @@ table, th, td {
 th, td {
     padding: 10px;
     text-align: left;
-}
-
-.form-section {
-    margin-bottom: 20px;
-}
-
-.upload-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
 }

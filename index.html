@@ -16,55 +16,36 @@
         <input type="file" id="file-upload" accept="image/*">
     </div>
 
-    <!-- ドラッグ＆ドロップエリア -->
+    <!-- ドラッグ＆ドロップ＆画像表示エリア -->
     <div id="drop-area" class="drop-area">
-        画像をここにドラッグ＆ドロップしてください
+        画像をここにドラッグ＆ドロップまたは選択してください
     </div>
 
-    <!-- チェックボックス -->
-    <div class="checkbox-section">
-        <div>
-            <input type="checkbox" id="option1">
-            <label for="option1">割れ目(勝敗/自陣)</label>
+    <!-- チェックボックスと読み込みボタン -->
+    <div class="form-section">
+        <div class="checkbox-section">
+            <div>
+                <input type="checkbox" id="option1">
+                <label for="option1">割れ目(勝敗/自陣)</label>
+            </div>
+            <div>
+                <input type="checkbox" id="option2">
+                <label for="option2">スキニ(勝敗/自陣)</label>
+            </div>
+            <div>
+                <input type="checkbox" id="option3">
+                <label for="option3">宇宙山(勝敗/自陣)</label>
+            </div>
         </div>
-        <div>
-            <input type="checkbox" id="option2">
-            <label for="option2">スキニ(勝敗/自陣)</label>
-        </div>
-        <div>
-            <input type="checkbox" id="option3">
-            <label for="option3">宇宙山(勝敗/自陣)</label>
-        </div>
-    </div>
 
-    <!-- 結果テーブル -->
-    <table id="result-table">
-        <thead>
-            <tr>
-                <th>プレイヤー名</th>
-                <th>結果</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>プレイヤー1</td>
-                <td>結果1</td>
-            </tr>
-            <tr>
-                <td>プレイヤー2</td>
-                <td>結果2</td>
-            </tr>
-        </tbody>
-    </table>
+        <button id="load-btn" class="load-btn" disabled>読み込み</button>
+    </div>
 
     <!-- スプレッドシートURL -->
     <div class="form-section">
         <label for="spreadsheet-url">スプレッドシートURL</label>
         <input type="text" id="spreadsheet-url">
     </div>
-
-    <!-- アップロードボタン -->
-    <button id="upload-btn" class="upload-btn">アップロード</button>
 
     <canvas id="canvas" style="display: none;"></canvas>
 
