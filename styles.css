@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.drop-area {
+    width: 50%;
+    margin: 0 auto 20px;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: center;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.drop-area img {
+    max-width: 100%;
+    height: auto;
+    display: none; /* 初期状態で非表示 */
+}
+
+.drop-area.dragover {
+    border-color: #4CAF50;
+    background-color: #eaffea;
+}
+
+.checkbox-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.checkbox-section div {
+    margin: 0 10px;
+}
+
+table {
+    width: 50%;
+    margin: 0 auto 20px;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+.upload-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

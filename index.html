@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBリザルト画面読取機</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>BBリザルト画面読取機</h1>
+
+    <!-- 画像アップロード -->
+    <div class="upload-section">
+        <label for="file-upload">戦闘結果画面画像をアップロードしてください</label>
+        <input type="file" id="file-upload" accept="image/*">
+    </div>
+
+    <!-- ドラッグ＆ドロップ＆画像表示エリア -->
+    <div id="drop-area" class="drop-area">
+        画像をここにドラッグ＆ドロップしてください
+    </div>
+
+    <!-- チェックボックス -->
+    <div class="checkbox-section">
+        <div>
+            <input type="checkbox" id="option1">
+            <label for="option1">割れ目(勝敗/自陣)</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option2">
+            <label for="option2">スキニ(勝敗/自陣)</label>
+        </div>
+        <div>
+            <input type="checkbox" id="option3">
+            <label for="option3">宇宙山(勝敗/自陣)</label>
+        </div>
+    </div>
+
+    <!-- 結果テーブル -->
+    <table id="result-table">
+        <thead>
+            <tr>
+                <th>プレイヤー名</th>
+                <th>結果</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>プレイヤー1</td>
+                <td>結果1</td>
+            </tr>
+            <tr>
+                <td>プレイヤー2</td>
+                <td>結果2</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- スプレッドシートURL -->
+    <div class="form-section">
+        <label for="spreadsheet-url">スプレッドシートURL</label>
+        <input type="text" id="spreadsheet-url">
+    </div>
+
+    <!-- アップロードボタン -->
+    <button id="upload-btn" class="upload-btn">アップロード</button>
+
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
