@@ -37,7 +37,7 @@
                 <label for="option3">早割(早勝/早敗)</label>
             </div>
         </div>
-        <button id="load-btn" class="load-btn" disabled>読み込み</button>
+        <button id="load-btn" class="load-btn" onclick="readScoreImage()">読み込み</button>
     </div>
     <!-- 左の青プレイヤー表 -->
     <div class="table-container">
@@ -47,7 +47,7 @@
                     <th>青プレイヤー</th><th>青結果</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody onchange="updateScoreTables()">
                 <tr><td><input type="text"></td><td><input type="text"></td></tr>
                 <tr><td><input type="text"></td><td><input type="text"></td></tr>
                 <tr><td><input type="text"></td><td><input type="text"></td></tr>
@@ -70,7 +70,7 @@
                     <th>赤プレイヤー</th><th>赤結果</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody onchange="updateScoreTables()">
                 <tr><td><input type="text"></td><td><input type="text"></td></tr>
                 <tr><td><input type="text"></td><td><input type="text"></td></tr>
                 <tr><td><input type="text"></td><td><input type="text"></td></tr>
@@ -86,14 +86,6 @@
             </tbody>
         </table>
     </div>
-
-    <!-- スプレッドシートURL -->
-    <div class="form-section">
-        <label for="spreadsheet-url">スプレッドシートURL</label>
-        <input type="text" id="spreadsheet-url">
-    </div>
-
-    <canvas id="canvas" style="display: none;"></canvas>
 
     <script src="script.js"></script>
 
