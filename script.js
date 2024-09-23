@@ -37,16 +37,13 @@ function handleImageUpload(event) {
 
         reader.onload = function(event) {
             const imageDisplay = document.getElementById('drop-area');
-            imageDisplay.innerHTML = ''; // 既存の画像をクリア
+            imageDisplay.innerHTML = ''; // 既存の画像やメッセージをクリア
 
             const img = new Image();
             img.src = event.target.result;
 
             img.onload = function() {
-                // 画面の高さの約半分より少し小さいサイズで画像を表示
-                const screenHeight = window.innerHeight;
-                img.style.height = `${Math.floor(screenHeight * 0.45)}px`; // 45% に設定
-
+                // 画像を表示
                 imageDisplay.appendChild(img);
             };
         };
@@ -57,58 +54,86 @@ function handleImageUpload(event) {
     }
 }
 
-document.getElementById('upload-btn').addEventListener('click', () => {
-    const fileInput = document.getElementById('file-upload');
-    const file = fileInput.files[0];
 
-    if (file) {
-        const reader = new FileReader();
-        
-        // 画像ファイルを読み込んで表示する
-        reader.onload = function(event) {
-            const img = new Image();
-            img.src = event.target.result;
+// プレイヤーデータの定数
+const bluePlayers = [
+    { name: 'プレイヤー1', result: '〇勝敗' },
+    { name: 'プレイヤー2', result: '〇勝敗' },
+    { name: 'プレイヤー3', result: '〇勝敗' },
+    { name: 'プレイヤー4', result: '〇勝敗' },
+    { name: 'プレイヤー5', result: '〇勝敗' },
+    { name: 'プレイヤー6', result: '〇勝敗' },
+    { name: 'プレイヤー7', result: '〇勝敗' },
+    { name: 'プレイヤー8', result: '〇勝敗' },
+    { name: 'プレイヤー9', result: '〇勝敗' },
+    { name: 'プレイヤー10', result: '〇勝敗' },
+    { name: '', result: '' },
+    { name: '', result: '' },
+];
+// プレイヤーデータの定数
+const redPlayers = [
+    { name: 'プレイヤー1', result: '×勝敗' },
+    { name: 'プレイヤー2', result: '×勝敗' },
+    { name: 'プレイヤー3', result: '×勝敗' },
+    { name: 'プレイヤー4', result: '×勝敗' },
+    { name: 'プレイヤー5', result: '×勝敗' },
+    { name: 'プレイヤー6', result: '×勝敗' },
+    { name: 'プレイヤー7', result: '×勝敗' },
+    { name: 'プレイヤー8', result: '×勝敗' },
+    { name: 'プレイヤー9', result: '×勝敗' },
+    { name: 'プレイヤー10', result: '×勝敗' },
+    { name: '', result: '' },
+    { name: '', result: '' },
+];
 
-            img.onload = function() {
-                const canvas = document.getElementById('canvas');
-                const ctx = canvas.getContext('2d');
 
-                // Canvasに画像を描画
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
+// 画像を読み取る
+function readScoreImage() {
 
-                // 画像を処理するコード（OCRやピクセルデータの読み取りなど）をここに追加
-                // ここでは仮に固定データとして表を更新
-                updateTable([
-                    { player: '新プレイヤー1', result: '勝利' },
-                    { player: '新プレイヤー2', result: '敗北' }
-                ]);
-            };
-        };
-        
-        reader.readAsDataURL(file);
-    } else {
-        alert('画像をアップロードしてください');
+
+    // 表に反映
+    function showScoreTable(players,nameInputs,resultInputs) {
+        players.forEach((player, index) => {
+            if (nameInputs[index] && resultInputs[index]) {
+                nameInputs[index].value = player.name;      // 名前を入力
+                resultInputs[index].value = player.result;  // 結果を入力
+            }
+        });
     }
-});
-
-// 表を更新する関数
-function updateTable(data) {
-    const tbody = document.getElementById('result-table').querySelector('tbody');
-    tbody.innerHTML = ''; // 既存の表をクリア
-
-    // 新しいデータで表を更新
-    data.forEach(item => {
-        const row = document.createElement('tr');
-        const playerCell = document.createElement('td');
-        const resultCell = document.createElement('td');
-
-        playerCell.textContent = item.player;
-        resultCell.textContent = item.result;
-
-        row.appendChild(playerCell);
-        row.appendChild(resultCell);
-        tbody.appendChild(row);
-    });
+    showScoreTable(
+        bluePlayers,
+        document.querySelectorAll('.blue-table tbody tr td:nth-child(1) input'),
+        document.querySelectorAll('.blue-table tbody tr td:nth-child(2) input'),    
+    );
+    showScoreTable(
+        redPlayers,
+        document.querySelectorAll('.red-table tbody tr td:nth-child(1) input'),
+        document.querySelectorAll('.red-table tbody tr td:nth-child(2) input'),    
+    );
 }
+
+
+
+function updateScoreTables(){
+    function updateScoreTable(players,nameInputs,resultInputs){
+        players.forEach((player, index) => {
+            if (nameInputs[index] && resultInputs[index]) {
+                player.name = nameInputs[index].value;      // 名前を入力
+                player.result = resultInputs[index].value;  // 結果を入力
+            }
+        });
+    }
+    updateScoreTable(
+        bluePlayers,
+        document.querySelectorAll('.blue-table tbody tr td:nth-child(1) input'),
+        document.querySelectorAll('.blue-table tbody tr td:nth-child(2) input'),    
+
+    );
+    updateScoreTable(
+        redPlayers,
+        document.querySelectorAll('.red-table tbody tr td:nth-child(1) input'),
+        document.querySelectorAll('.red-table tbody tr td:nth-child(2) input'),    
+    );
+    console.log(bluePlayers);
+}
+
