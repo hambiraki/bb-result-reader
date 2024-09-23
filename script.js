@@ -54,21 +54,4 @@ function handleImageUpload(event) {
     }
 }
 
-// 読み込みボタンの有効化チェック
-document.getElementById('option1').addEventListener('change', validateForm);
-document.getElementById('option2').addEventListener('change', validateForm);
-document.getElementById('option3').addEventListener('change', validateForm);
 
-function validateForm() {
-    const file = document.getElementById('file-upload').files[0];
-    const option1Checked = document.getElementById('option1').checked;
-    const option2Checked = document.getElementById('option2').checked;
-    const option3Checked = document.getElementById('option3').checked;
-
-    const loadBtn = document.getElementById('load-btn');
-    if (file && (option1Checked || option2Checked || option3Checked)) {
-        loadBtn.disabled = false;
-    } else {
-        loadBtn.disabled = true;
-    }
-}

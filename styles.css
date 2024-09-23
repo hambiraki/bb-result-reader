@@ -27,30 +27,19 @@ h1 {
 
 .drop-area img {
     max-height: 40vh; /* 画像の高さを画面の40%に設定 */
-    width: auto;      /* 横幅は自動調整 */
-    height: auto;     /* 縦横比を保持 */
-}
-
-.drop-area.dragover {
-    border-color: #4CAF50;
-    background-color: #eaffea;
-}
-
-.checkbox-section {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.checkbox-section div {
-    margin: 0 10px;
+    width: auto;
+    height: auto;
 }
 
 .form-section {
+    width: 80%;
+    overflow: auto; /* floatによる崩れを防ぐ */
+    margin: 0 auto;
     margin-bottom: 20px;
 }
 
 .load-btn {
+    float: right; /* ボタンを左側に配置 */
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
@@ -64,17 +53,46 @@ h1 {
     cursor: not-allowed;
 }
 
-table {
-    width: 50%;
-    margin: 0 auto 20px;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid black;
-}
-
-th, td {
-    padding: 10px;
+.checkbox-section {
+    float: left; /* チェックボックスを右側に配置 */
     text-align: left;
+}
+
+.checkbox-section div {
+    margin-bottom: 10px;
+}
+
+/* テーブルのスタイル */
+.table-container {
+    width: 90%; /* 全幅のコンテナ */
+    overflow: auto; /* floatによる崩れを防ぐ */
+    margin: 0 auto;
+}
+
+.table-section {
+    width: 80%;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+.blue-table, .red-table {
+    width: 45%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    float: left;
+    margin-right: 5%;
+}
+
+.blue-table th, .red-table th, .blue-table td, .red-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.blue-table th {
+    background-color: #e0f7fa;
+}
+
+.red-table th {
+    background-color: #ffebee;
 }
