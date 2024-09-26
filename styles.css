@@ -103,13 +103,6 @@ h1 {
     justify-content: center; /* 横方向の中央揃え */
 }
 
-/* 画面幅が小さい場合のレスポンシブ対応 */
-@media (max-width: 600px) {
-    .table-container {
-        grid-template-columns: repeat(2, 1fr); /* 小さい画面では2列にする */
-    }
-}
-
 .blue-table, .red-table {
     width: 45%;
     margin-bottom: 20px;
@@ -130,17 +123,32 @@ h1 {
 .red-table th {
     background-color: #ffebee;
 }
-
+.mvp-col{
+    width: 8%;
+}
 /* テーブル内のセルの余白をなくす */
 .blue-table td, .red-table td {
     padding: 0; /* セル内の余白を0にする */
     margin: 0;  /* セル内のマージンを0にする */
 }
 
+td {
+    height: 1.5em; /* 文字が入ったときにセルの高さを変えたくない */
+}
+
+.blue-table td:hover {
+    background-color: lightblue;
+}
+
+.red-table td:hover {
+    background-color: lightcoral;
+}
+
+
 .blue-table input, .red-table input {
     border: none;    /* 入力欄のボーダーをなくす（必要に応じて） */
     padding: 0;      /* 入力欄内の余白を0にする */
     margin: 0;       /* 入力欄内のマージンを0にする */
     box-sizing: border-box; /* ボーダーやパディングを含めてサイズを調整 */
-    /* width: 100%;     入力欄をセル全体に広げる */
+    width: 100%;     /*入力欄をセル全体に広げる*/
 }

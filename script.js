@@ -151,6 +151,36 @@ function readScoreImage() {
 }
 
 
+function addCustomRadioEvent(customRadios){
+    // すべてのカスタムラジオボタンにクリックイベントを追加
+    customRadios.forEach(radio => {
+        radio.addEventListener('click', function() {
+            // クリックされたラジオボタンの次の状態を決定
+            const transition = {
+                "" : "緑", "緑":"金", "金":""
+            }
+            const next_state = transition[radio.textContent];
+
+            // すべてのカスタムラジオボタンを未選択状態にする
+            customRadios.forEach(r => r.textContent = "");
+        
+            // クリックされたラジオボタンを次の状態にする
+            radio.textContent = next_state;
+        });
+    });
+}
+
+// MVPの列それぞれをカスタムラジオボタンにする
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(2)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(3)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(4)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(5)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(6)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(2)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(3)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(4)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(5)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(6)'));
 
 function updateScoreTables(){
     function updateScoreTable(players,nameInputs,resultInputs){
