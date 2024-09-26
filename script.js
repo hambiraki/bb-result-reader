@@ -56,7 +56,7 @@ function handleImageUpload(event) {
 
 
 // プレイヤーデータの定数
-const bluePlayers = [
+let bluePlayers = [
     { name: 'プレイヤー1', result: '〇勝敗' },
     { name: 'プレイヤー2', result: '〇勝敗' },
     { name: 'プレイヤー3', result: '〇勝敗' },
@@ -71,7 +71,7 @@ const bluePlayers = [
     { name: '', result: '' },
 ];
 // プレイヤーデータの定数
-const redPlayers = [
+let redPlayers = [
     { name: 'プレイヤー1', result: '×勝敗' },
     { name: 'プレイヤー2', result: '×勝敗' },
     { name: 'プレイヤー3', result: '×勝敗' },
@@ -86,10 +86,48 @@ const redPlayers = [
     { name: '', result: '' },
 ];
 
+// 勝敗, 割れ, 大差, 早割
+const WIN_LOSE_TYPE = {
+    "true,true,true,true": "〇早圧",
+    "true,true,true,false": "〇圧勝",
+    "true,true,false,true": "〇早勝",
+    "true,true,false,false": "〇割勝",
+    "true,false,true,true": "〇早圧",
+    "true,false,true,false": "〇圧勝",
+    "true,false,false,true": "〇早勝",
+    "true,false,false,false": "〇勝利",
+    "false,true,true,true": "×早大",
+    "false,true,true,false": "×大敗",
+    "false,true,false,true": "×早敗",
+    "false,true,false,false": "×割敗",
+    "false,false,true,true": "×早大",
+    "false,false,true,false": "×大敗",
+    "false,false,false,true": "×早敗",
+    "false,false,false,false": "×敗北",
+};
 
 // 画像を読み取る
 function readScoreImage() {
 
+    // 勝敗情報
+    const isBlueWin = document.querySelector('input[name="win-team-is"][value="blue"]').checked;
+    const isRedWin = document.querySelector('input[name="win-team-is"][value="red"]').checked;
+    const isBreak = document.querySelector('#isBreak').checked;
+    const isCompletely = document.querySelector('#isCompletely').checked;
+    const isEarly = document.querySelector('#isEarly').checked;
+
+    const blueResult = WIN_LOSE_TYPE[[isBlueWin, isBreak, isCompletely, isEarly].toString()];
+    const redResult = WIN_LOSE_TYPE[[isRedWin, isBreak, isCompletely, isEarly].toString()];
+
+    function updateTeamResult(players, teamResult) {
+        players.forEach((player) => {
+            if (player.result && player.result.length >= 3) {
+                player.result = teamResult + player.result.slice(3);
+            }
+        });
+    }
+    updateTeamResult(bluePlayers, blueResult);
+    updateTeamResult(redPlayers, redResult);
 
     // 表に反映
     function showScoreTable(players,nameInputs,resultInputs) {
@@ -113,6 +151,36 @@ function readScoreImage() {
 }
 
 
+function addCustomRadioEvent(customRadios){
+    // すべてのカスタムラジオボタンにクリックイベントを追加
+    customRadios.forEach(radio => {
+        radio.addEventListener('click', function() {
+            // クリックされたラジオボタンの次の状態を決定
+            const transition = {
+                "" : "緑", "緑":"金", "金":""
+            }
+            const next_state = transition[radio.textContent];
+
+            // すべてのカスタムラジオボタンを未選択状態にする
+            customRadios.forEach(r => r.textContent = "");
+        
+            // クリックされたラジオボタンを次の状態にする
+            radio.textContent = next_state;
+        });
+    });
+}
+
+// MVPの列それぞれをカスタムラジオボタンにする
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(2)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(3)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(4)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(5)'));
+addCustomRadioEvent(document.querySelectorAll('.blue-table tr td:nth-child(6)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(2)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(3)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(4)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(5)'));
+addCustomRadioEvent(document.querySelectorAll('.red-table tr td:nth-child(6)'));
 
 function updateScoreTables(){
     function updateScoreTable(players,nameInputs,resultInputs){

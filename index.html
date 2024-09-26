@@ -23,43 +23,94 @@
 
     <!-- チェックボックスと読み込みボタン -->
     <div class="form-section">
-        <div class="checkbox-section">
-            <div>
-                <input type="checkbox" id="option1">
-                <label for="option1">割れ(割勝/割敗)</label>
+        <div class="radio-checkbox-section">
+            <div class="radio-group">
+                <label><input type="radio" name="win-team-is" value="blue">
+                    青勝利
+                </label>
+                <label><input type="radio" name="win-team-is" value="red">
+                    赤勝利
+                </label>
             </div>
-            <div>
-                <input type="checkbox" id="option2">
-                <label for="option2">大差(圧勝/大敗)</label>
-            </div>
-            <div>
-                <input type="checkbox" id="option3">
-                <label for="option3">早割(早勝/早敗)</label>
+            <div class="checkbox-section">
+                <div>
+                    <input type="checkbox" id="isBreak">
+                    <label for="isBreak">割れ(割勝/割敗)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="isCompletely">
+                    <label for="isCompletely">大差(圧勝/大敗)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="isEarly">
+                    <label for="isEarly">早割(早勝/早敗)</label>
+                </div>
             </div>
         </div>
-        <button id="load-btn" class="load-btn" onclick="readScoreImage()">読み込み</button>
+        <button id="load-btn" class="load-btn" onclick="readScoreImage()">勝敗読込</button>
     </div>
     <!-- 左の青プレイヤー表 -->
     <div class="table-container">
         <table class="blue-table">
             <thead>
                 <tr>
-                    <th>青プレイヤー</th><th>青結果</th>
+                    <th>青プレイヤー</th>
+                    <th class="mvp-col">撃破</th>
+                    <th class="mvp-col">進行</th>
+                    <th class="mvp-col">コア</th>
+                    <th class="mvp-col">偵察</th>
+                    <th class="mvp-col">防衛</th>
                 </tr>
             </thead>
             <tbody onchange="updateScoreTables()">
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td> </td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
             </tbody>
         </table>
 
@@ -67,22 +118,63 @@
         <table class="red-table">
             <thead>
                 <tr>
-                    <th>赤プレイヤー</th><th>赤結果</th>
+                    <th>赤プレイヤー</th>
+                    <th class="mvp-col">撃破</th>
+                    <th class="mvp-col">進行</th>
+                    <th class="mvp-col">コア</th>
+                    <th class="mvp-col">偵察</th>
+                    <th class="mvp-col">防衛</th>
                 </tr>
             </thead>
             <tbody onchange="updateScoreTables()">
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
-                <tr><td><input type="text"></td><td><input type="text"></td></tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
