@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <button id="load-btn" class="load-btn" onclick="readScoreImage()">勝敗読込</button>
+        <button id="load-btn" class="load-btn" onclick="aggregate()">勝敗読込</button>
     </div>
     <!-- 左の青プレイヤー表 -->
     <div class="table-container">
@@ -62,7 +62,7 @@
                     <th class="mvp-col">防衛</th>
                 </tr>
             </thead>
-            <tbody onchange="updateScoreTables()">
+            <tbody>
                 <tr>
                     <td><input type="text"></td>
                     <td></td> <td> </td> <td></td> <td></td> <td></td>
@@ -126,7 +126,7 @@
                     <th class="mvp-col">防衛</th>
                 </tr>
             </thead>
-            <tbody onchange="updateScoreTables()">
+            <tbody>
                 <tr>
                     <td><input type="text"></td>
                     <td></td> <td></td> <td></td> <td></td> <td></td>

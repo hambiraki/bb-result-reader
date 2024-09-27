@@ -152,3 +152,78 @@ td {
     box-sizing: border-box; /* ボーダーやパディングを含めてサイズを調整 */
     width: 100%;     /*入力欄をセル全体に広げる*/
 }
+
+.checkbox-section {
+    float: left; /* チェックボックスを右側に配置 */
+    text-align: left;
+}
+
+.checkbox-section div {
+    margin-bottom: 10px;
+}
+
+/* テーブルのスタイル */
+.table-container {
+    display: flex;
+    grid-template-columns: repeat(5, 1fr); /* 5等分の列 */
+    gap: 10px;
+    width: 80%; /* 全体幅を80%に設定 */
+    margin: 0 auto; /* 横方向に中央揃え */
+    justify-content: center; /* コンテンツを横方向に中央揃え */
+}
+
+.table-container div {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    justify-content: center; /* 横方向の中央揃え */
+}
+
+.table-section {
+    width: 80%;
+    overflow: auto;
+    margin-top: 20px;
+    justify-content: center; /* 横方向の中央揃え */
+}
+
+/* 画面幅が小さい場合のレスポンシブ対応 */
+@media (max-width: 600px) {
+    .table-container {
+        grid-template-columns: repeat(2, 1fr); /* 小さい画面では2列にする */
+    }
+}
+
+.blue-table, .red-table {
+    width: 45%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    margin-right: 5%;
+}
+
+.blue-table th, .red-table th, .blue-table td, .red-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.blue-table th {
+    background-color: #e0f7fa;
+}
+
+.red-table th {
+    background-color: #ffebee;
+}
+
+/* テーブル内のセルの余白をなくす */
+.blue-table td, .red-table td {
+    padding: 0; /* セル内の余白を0にする */
+    margin: 0;  /* セル内のマージンを0にする */
+}
+
+.blue-table input, .red-table input {
+    border: none;    /* 入力欄のボーダーをなくす（必要に応じて） */
+    padding: 0;      /* 入力欄内の余白を0にする */
+    margin: 0;       /* 入力欄内のマージンを0にする */
+    box-sizing: border-box; /* ボーダーやパディングを含めてサイズを調整 */
+    /* width: 100%;     入力欄をセル全体に広げる */
+}
