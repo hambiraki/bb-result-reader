@@ -12,7 +12,7 @@
 
     <!-- 画像アップロード -->
     <div class="upload-section">
-        <label for="file-upload">戦闘結果画面画像をアップロードしてください</label>
+        <label for="file-upload">リザルト画面をアップロードしてください</label>
         <input type="file" id="file-upload" accept="image/*">
     </div>
 
@@ -22,7 +22,7 @@
     </div>
 
     <!-- チェックボックスと読み込みボタン -->
-    <div class="form-section">
+    <!-- <div class="form-section"> -->
         <div class="radio-checkbox-section">
             <div class="radio-group">
                 <label><input type="radio" name="win-team-is" value="blue">
@@ -47,139 +47,141 @@
                 </div>
             </div>
         </div>
-        <button id="load-btn" class="load-btn" onclick="aggregate()">勝敗読込</button>
-    </div>
-    <!-- 左の青プレイヤー表 -->
-    <div class="table-container">
-        <table class="blue-table">
-            <thead>
-                <tr>
-                    <th>青プレイヤー</th>
-                    <th class="mvp-col">撃破</th>
-                    <th class="mvp-col">進行</th>
-                    <th class="mvp-col">コア</th>
-                    <th class="mvp-col">偵察</th>
-                    <th class="mvp-col">防衛</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td> </td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- </div> -->
+    <div class="table-scroll">
+        <div class="table-container">
+            <!-- 左の青プレイヤー表 -->
+            <table class="blue-table">
+                <thead>
+                    <tr>
+                        <th>青プレイヤー</th>
+                        <th class="mvp-col">撃破</th>
+                        <th class="mvp-col">進行</th>
+                        <th class="mvp-col">コア</th>
+                        <th class="mvp-col">偵察</th>
+                        <th class="mvp-col">防衛</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td> </td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <!-- 右の赤プレイヤー表 -->
-        <table class="red-table">
-            <thead>
-                <tr>
-                    <th>赤プレイヤー</th>
-                    <th class="mvp-col">撃破</th>
-                    <th class="mvp-col">進行</th>
-                    <th class="mvp-col">コア</th>
-                    <th class="mvp-col">偵察</th>
-                    <th class="mvp-col">防衛</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-                <tr>
-                    <td><input type="text"></td>
-                    <td></td> <td></td> <td></td> <td></td> <td></td>
-                </tr>
-            </tbody>
-        </table>
+            <!-- 右の赤プレイヤー表 -->
+            <table class="red-table">
+                <thead>
+                    <tr>
+                        <th>赤プレイヤー</th>
+                        <th class="mvp-col">撃破</th>
+                        <th class="mvp-col">進行</th>
+                        <th class="mvp-col">コア</th>
+                        <th class="mvp-col">偵察</th>
+                        <th class="mvp-col">防衛</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td></td> <td></td> <td></td> <td></td> <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <button id="load-btn" class="load-btn" onclick="aggregate()">スプレッドシート反映(工事中)</button>
 
     <script src="script.js"></script>
-
 </body>
 </html>
