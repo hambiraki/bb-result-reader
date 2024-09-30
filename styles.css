@@ -48,6 +48,7 @@ h1 {
     flex-direction: column;
 }
 .radio-group {
+    display: flex;
     justify-content:space-around;
 }
 
