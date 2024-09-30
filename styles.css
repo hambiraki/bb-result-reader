@@ -142,6 +142,7 @@ td {
     margin: 0;       /* 入力欄内のマージンを0にする */
     box-sizing: content-box; /* ボーダーやパディングを含めてサイズを調整 */
     width: 100%;     /* 入力欄をセル全体に広げる */
+    font-size: 16px;
     /* min-width: auto; */
 }
 
