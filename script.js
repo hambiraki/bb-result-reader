@@ -68,7 +68,7 @@ function handleImageUpload(event) {
         const reader = new FileReader();
 
         reader.onload = function(event) {
-            const imageDisplay = document.getElementById('drop-area');
+            const imageDisplay = document.getElementById('drop-text');
             imageDisplay.innerHTML = ''; // 既存の画像やメッセージをクリア
 
             const img = new Image();
