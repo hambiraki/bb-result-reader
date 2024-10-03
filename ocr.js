@@ -5,7 +5,7 @@ function extractPlayerNames(img) {
     const croppedImagesContainer = document.getElementById('croppedImagesContainer');
     croppedImagesContainer.innerHTML = ""; // クリア
 
-    // キャンバスのサイズを画像のサイズに合わせる
+    // キャンバスのサイズは固定
     console.log(`img.width:${img.width}, img.height:${img.height}`);
     canvas.width = 3840;
     canvas.height = 2160;
@@ -37,7 +37,6 @@ function extractPlayerNames(img) {
         { x_px: 2899, y_px: 1258, width_px: 590, height_px: 60 }, // 8th player
         { x_px: 2899, y_px: 1396, width_px: 590, height_px: 60 }, // 9th player
         { x_px: 2899, y_px: 1534, width_px: 590, height_px: 60 }, // 10th player
-
     ];
 
     // 各領域からテキストを抽出し、切り出した画像を表示
@@ -66,18 +65,26 @@ function extractPlayerNames(img) {
                     croppedImagesContainer.appendChild(croppedImageElement);
 
             // OCRによるテキスト認識
-            try{
+            try {
                 const ocr_result = await Tesseract.recognize(
                     croppedCanvas.toDataURL(),
                     'jpn',
-                    { logger: m => console.log(m) }
+                    { logger: m => {
+                        console.log(m);
+                        if(m.status === 'recognizing text'){
+                            const progress = Math.round(m.progress * 100);
+                            cellToShow.textContent = `処理中... ${progress}%`;
+                        }
+                    }}
                 );
-            }catch(error){
-                return "OCR処理でエラー発生";
+                    const name = ocr_result.data.text.trim().replaceAll(" ","");
+                    cellToShow.textContent = name;
+                    return name;
+                } catch(error){
+                    const errmsg = "OCR処理でエラー発生";
+                    cellToShow.textContent = errmsg;
+                    return errmsg;
             }
-            const name = ocr_result.data.text.trim().replaceAll(" ","");
-            cellToShow.textContent = name;
-            return name;
     }
     const blueTable = document.getElementById("blue-table")
     const blueTeam = bluePlayerRegions_px.map((region_px, index) => {
