@@ -68,17 +68,17 @@ function handleImageUpload(event) {
         const reader = new FileReader();
 
         reader.onload = function(event) {
-            const imageDisplay = document.getElementById('drop-text');
+            const imageDisplay = document.getElementById('drop-area');
             imageDisplay.innerHTML = ''; // 既存の画像やメッセージをクリア
 
             const img = new Image();
             img.src = event.target.result;
 
             img.onload = function() {
-                // 名前を抽出
-                extractPlayerNames(img);
                 // 画像を表示
                 imageDisplay.appendChild(img);
+                // 名前を抽出
+                extractPlayerNames(img);
             };
         };
 

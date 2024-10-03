@@ -30,7 +30,7 @@ h1 {
 }
 
 .drop-area img {
-    display: block; /* 画像を表示 */
+    display: inline; /* 画像を表示 */
     max-height: 40vh;    /* 最大高さを画面の40%に制限 */
     max-width: 80vw;     /* 最大幅を画面の80%に制限 */
     width: auto;         /* 幅は自動調整 */
@@ -49,19 +49,11 @@ h1 {
 
 #loadingSpinner {
     position: absolute; /* 絶対位置で配置 */
-    bottom: 10px; /* 親要素の下から10px */
-    right: 10px; /* 親要素の右から10px */
+    bottom: 10%; /* 親要素の下から10px */
+    right: 10%; /* 親要素の右から10px */
     background-color: rgba(255, 255, 255, 0.8); /* 半透明の背景 */
-    padding: 10px; /* パディングを追加 */
-    border-radius: 5px; /* 角を少し丸くする */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 影を追加 */
-    display: none; /* 初期状態は非表示 */
-    text-align: center;
-}
-
-#loadingSpinner img {
-    width: 30px; /* スピナーのサイズを調整 */
-    height: 30px;
+    background-size: contain; /* スピナー画像をサイズ内に収める */
 }
 
 .radio-checkbox-section {
