@@ -40,7 +40,7 @@ function extractPlayerNames(img) {
     ];
 
     // 各領域からテキストを抽出し、切り出した画像を表示
-    async function extractNameByRegion(region_px, threshold, cellToShow) {
+    async function extractNameByRegion(region_px, threshold, playerNameCell) {
             const croppedCanvas = document.createElement('canvas');
             const croppedCtx = croppedCanvas.getContext('2d');
             croppedCanvas.width = region_px.width_px;
@@ -69,23 +69,22 @@ function extractPlayerNames(img) {
                 const ocr_result = await Tesseract.recognize(
                     croppedCanvas.toDataURL(),
                     'jpn',
-                    { logger: m => {
-                        console.log(m);
-                        if(m.status === 'recognizing text'){
-                            const progress = Math.round(m.progress * 100);
-                            cellToShow.textContent = `処理中... ${progress}%`;
-                        }
-                    }}
+                    { logger: m => console.log(m) }
                 );
-                    const name = ocr_result.data.text.trim().replaceAll(" ","");
-                    cellToShow.textContent = name;
-                    return name;
-                } catch(error){
-                    const errmsg = "OCR処理でエラー発生";
-                    cellToShow.textContent = errmsg;
-                    return errmsg;
+                const name = ocr_result.data.text.trim().replaceAll(" ","");
+                playerNameCell.textContent = name;
+                return name;
+            } catch(error){
+                const errmsg = "OCR処理でエラー発生";
+                playerNameCell.textContent = errmsg;
+                return errmsg;
             }
     }
+
+    // 
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    loadingSpinner.style.display = "flex";
+
     const blueTable = document.getElementById("blue-table")
     const blueTeam = bluePlayerRegions_px.map((region_px, index) => {
         return extractNameByRegion(region_px, 128, blueTable.rows[index+1].cells[0]);
@@ -94,4 +93,11 @@ function extractPlayerNames(img) {
     const redTeam = redPlayerRegions_px.map((region_px, index) => {
         return extractNameByRegion(region_px, 64, redTable.rows[index+1].cells[0]);
     });
+
+    Promise.all([Promise.all(blueTeam),Promise.all(redTeam)])
+        .then(([blue_team, red_team]) => {
+            const loadingSpinner = document.getElementById("loadingSpinner");
+            loadingSpinner.style.display = "none";
+        })
+
 }

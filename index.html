@@ -14,13 +14,19 @@
 
     <!-- 画像アップロード -->
     <div class="upload-section">
-        <label for="file-upload">リザルト画面をアップロードしてください</label>
+        <label for="file-upload">リザルト画面をアップロードしてください</label>        
         <input type="file" id="file-upload" accept="image/*">
     </div>
 
     <!-- ドラッグ＆ドロップ＆画像表示エリア -->
     <div id="drop-area" class="drop-area">
-        画像をここにドラッグ＆ドロップまたは選択してください
+        <div id="drop-text">
+            画像をここにドラッグ＆ドロップまたは選択してください
+        </div>
+        <div id="loadingSpinner" style="display: none;">
+            <img src="image/spinner.gif" alt="Loading..." />
+            <p>処理中...</p>
+        </div>
     </div>
 
     <!-- 勝敗 -->
