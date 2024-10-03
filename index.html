@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBリザルト画面読取機</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <script src="ocr.js"></script>
 </head>
 <body>
 
@@ -49,7 +51,7 @@
     <div class="table-scroll">
         <div class="table-container">
             <!-- 左の青プレイヤー表 -->
-            <table class="blue-table">
+            <table class="blue-table" id="blue-table">
                 <thead>
                     <tr>
                         <th>青プレイヤー</th>
@@ -113,7 +115,7 @@
             </table>
 
             <!-- 右の赤プレイヤー表 -->
-            <table class="red-table">
+            <table class="red-table" id="red-table">
                 <thead>
                     <tr>
                         <th>赤プレイヤー</th>
@@ -179,7 +181,8 @@
     </div>
 
     <button id="load-btn" class="load-btn" onclick="aggregate()">スプレッドシート反映(工事中)</button>
-
+    <div id="output"></div>
+    <div id="croppedImagesContainer"></div> <!-- 切り出した画像の表示領域 -->
     <script src="script.js"></script>
 </body>
 </html>

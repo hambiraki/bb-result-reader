@@ -75,6 +75,8 @@ function handleImageUpload(event) {
             img.src = event.target.result;
 
             img.onload = function() {
+                // 名前を抽出
+                extractPlayerNames(img);
                 // 画像を表示
                 imageDisplay.appendChild(img);
             };
