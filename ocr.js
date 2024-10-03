@@ -27,15 +27,14 @@ const redPlayerRegions_px = [
 ];
 
 
-const mobileList = ["iPhone", "iPod", "Android"];
 const userAgent = navigator.userAgent.toLowerCase();
+const mobileList = ["iphone", "ipod", "android"];
 const isMobile = mobileList.some(device => userAgent.indexOf(device) > -1)
     || userAgent.indexOf("macintosh") >-1 && "ontouchend" in document;
 
 
 async function extractPlayerNames(img) {
     const canvas = document.createElement('canvas');
-    const output = document.getElementById('output');
     const ctx = canvas.getContext('2d');
     const croppedImagesContainer = document.getElementById('croppedImagesContainer');
     croppedImagesContainer.innerHTML = ""; // クリア
@@ -64,12 +63,6 @@ async function extractPlayerNames(img) {
             data[i] = data[i + 1] = data[i + 2] = avg > threshold ? 255 : 0; // 2値化
         }
         croppedCtx.putImageData(imageData, 0, 0);
-
-                // // 切り出した画像を表示
-                // const croppedImageElement = new Image();
-                // croppedImageElement.src = croppedCanvas.toDataURL();
-                // croppedImageElement.className = 'cropped-image';
-                // croppedImagesContainer.appendChild(croppedImageElement);
 
         // OCRによるテキスト認識
         const inputElement = playerNameCell.querySelector('input[type="text"]');
