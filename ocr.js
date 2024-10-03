@@ -65,6 +65,7 @@ function extractPlayerNames(img) {
                     croppedImagesContainer.appendChild(croppedImageElement);
 
             // OCRによるテキスト認識
+            const inputElement = playerNameCell.querySelector('input[type="text"]');
             try {
                 const ocr_result = await Tesseract.recognize(
                     croppedCanvas.toDataURL(),
@@ -72,16 +73,16 @@ function extractPlayerNames(img) {
                     { logger: m => console.log(m) }
                 );
                 const name = ocr_result.data.text.trim().replaceAll(" ","");
-                playerNameCell.textContent = name;
+                inputElement.value = name;
                 return name;
             } catch(error){
-                const errmsg = "OCR処理でエラー発生";
-                playerNameCell.textContent = errmsg;
-                return errmsg;
+                inputElement.value = error.message;
+                output.textContent = error.stack;
+                return error.message;
             }
     }
 
-    // 
+    // ローディング表示を開始
     const loadingSpinner = document.getElementById("loadingSpinner");
     loadingSpinner.style.display = "flex";
 
@@ -94,6 +95,7 @@ function extractPlayerNames(img) {
         return extractNameByRegion(region_px, 64, redTable.rows[index+1].cells[0]);
     });
 
+    // ローディング表示を終了
     Promise.all([Promise.all(blueTeam),Promise.all(redTeam)])
         .then(([blue_team, red_team]) => {
             const loadingSpinner = document.getElementById("loadingSpinner");
