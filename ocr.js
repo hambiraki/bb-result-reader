@@ -66,11 +66,15 @@ function extractPlayerNames(img) {
                     croppedImagesContainer.appendChild(croppedImageElement);
 
             // OCRによるテキスト認識
-            const ocr_result = await Tesseract.recognize(
-                croppedCanvas.toDataURL(),
-                'jpn',
-                { logger: m => console.log(m) }
-            );
+            try{
+                const ocr_result = await Tesseract.recognize(
+                    croppedCanvas.toDataURL(),
+                    'jpn',
+                    { logger: m => console.log(m) }
+                );
+            }catch(error){
+                return "OCR処理でエラー発生";
+            }
             const name = ocr_result.data.text.trim().replaceAll(" ","");
             cellToShow.textContent = name;
             return name;
