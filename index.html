@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BORDER BREAKのリザルト画面から名前やMVPを読み取ります。">
     <title>BBリザルト画面読取機</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
@@ -53,6 +54,8 @@
             </div>
         </div>
     </div>
+
+    <!-- プレイヤー名 MVP -->
     <div class="table-scroll">
         <div class="table-container">
             <!-- 左の青プレイヤー表 -->
@@ -185,9 +188,17 @@
         </div>
     </div>
 
-    <button id="load-btn" class="load-btn" onclick="aggregate()">スプレッドシート反映(工事中)</button>
+    <!-- スプレッドシートへの反映 -->
+    <div>
+        <label for="spreadsheet-url">スプレッドシートURL</label>        
+        <input type="text" id="spreadsheet-url">
+        <button id="load-btn" class="load-btn" onclick="aggregate()">スプレッドシート反映(工事中)</button>
+    </div>
     <div id="output"></div>
     <div id="croppedImagesContainer"></div> <!-- 切り出した画像の表示領域 -->
+    <footer>
+        BORDER BREAK &copy; SEGA
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
