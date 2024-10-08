@@ -1,12 +1,21 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 20px;
+    /* padding: 20px; */
     text-align: center;
 }
 
 h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    text-align: center; /* 中央揃え */
+    font-size: 2em; /* フォントサイズ */
+    margin: 0; /* マージンをリセット */
+    padding: 20px 0; /* 上下の余白 */
+    background-color: #333; /* フッターと同じ背景色 */
+    color: white; /* 文字色 */
+    border-radius: 0 0 10px 10px; /* 下部だけ角を丸くする */
+}
+
+input {
+    font-size: 16px;
 }
 
 .upload-section {
@@ -61,21 +70,10 @@ h1 {
     display: flex;
     flex-direction: column;
 }
-.radio-group {
+.radio-group, .checkbox-section {
     display: flex;
     justify-content:space-around;
 }
-
-.checkbox-section {
-    display: flex;
-    justify-content:space-around;
-}
-
-.checkbox-section div {
-    margin-bottom: 10px;
-}
-
-
 
 /* テーブルのスタイル */
 .table-container {
@@ -157,7 +155,6 @@ td {
     margin: 0;       /* 入力欄内のマージンを0にする */
     box-sizing: content-box; /* ボーダーやパディングを含めてサイズを調整 */
     width: 100%;     /* 入力欄をセル全体に広げる */
-    font-size: 16px;
     /* min-width: auto; */
 }
 
@@ -198,19 +195,34 @@ td {
     margin: 0; /* 不要な余白を削除 */
 }
 
-.load-btn {
-    text-align: center;
-    width: 80%;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-end;
+.form-group, .spreadsheet{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: row; /* 横並びにする */
+    align-items: center; /* 中央揃え */
+}
+/* @media (max-width: 600px) { */
+    .form-group{
+        flex-direction: column; /* 縦に並べる */
+    }
+/* } */
+#update-col{
+    width: 48px;
 }
 
-.load-btn:hover {
-    background-color: #45a049;
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    min-height: 100vh; /* ビューポートの高さを設定 */
+}
+.content {
+    flex: 1; /* フッターが画面下に来るようにする */
+    padding: 20px;
+}
+footer {
+    background: #333; /* フッターの背景色 */
+    color: white; /* フッターの文字色 */
+    text-align: center; /* 中央揃え */
+    padding: 10px 0; /* 上下の余白 */
 }
