@@ -1,34 +1,58 @@
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+                    .setTitle('BBリザルト画面読取機');
+}
+
+
 function doPost(e) {
-    try {
-      // POSTされたデータをパース
-      var data = JSON.parse(e.postData.contents);
-  
-      // 必要な情報の取得
-      var sheetUrl = data.spreadsheetUrl; // POSTで送られてくるスプレッドシートのURL
-      var grades = data.grades; // 成績（文字列）
-  
-      // スプレッドシートIDの取得 (URLからID部分を抜き出す)
-      var spreadsheetId = sheetUrl.match(/[-\w]{25,}/); // 正規表現でスプレッドシートのIDを抽出
-  
-      if (!spreadsheetId) {
-        return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": "Invalid Spreadsheet URL" }))
-                              .setMimeType(ContentService.MimeType.JSON);
-      }
-  
-      // スプレッドシートにアクセス
-      var spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-      var sheet = spreadsheet.getActiveSheet(); // アクティブシートを使用 (特定のシート名を指定したい場合はシート名で取得)
-  
-      // 書き込みたいセルの設定 (例: A1セルに書き込む)
-      sheet.getRange("A1").setValue(grades); // A1セルに成績を書き込み
-  
-      // 成功メッセージの返却
-      return ContentService.createTextOutput(JSON.stringify({ "status": "success", "message": "Grades updated successfully" }))
-                            .setMimeType(ContentService.MimeType.JSON);
-    } catch (error) {
-      // エラーハンドリング
-      return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": error.message }))
+  try {
+    // POSTされたデータをパース
+    var data = JSON.parse(e.postData.contents);
+
+    // 必要な情報の取得
+    var sheetUrl = data.spreadsheetUrl; // POSTで送られてくるスプレッドシートのURL
+    var grades = data.grades; // 成績（文字列）
+
+    // スプレッドシートIDの取得 (URLからID部分を抜き出す)
+    var spreadsheetId = sheetUrl.match(/[-\w]{25,}/); // 正規表現でスプレッドシートのIDを抽出
+
+    if (!spreadsheetId) {
+      return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": "Invalid Spreadsheet URL" }))
                             .setMimeType(ContentService.MimeType.JSON);
     }
+
+    // スプレッドシートにアクセス
+    var spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+    var sheet = spreadsheet.getActiveSheet(); // アクティブシートを使用 (特定のシート名を指定したい場合はシート名で取得)
+
+    // 書き込みたいセルの設定 (例: A1セルに書き込む)
+    sheet.getRange("A1").setValue(grades); // A1セルに成績を書き込み
+
+    // 成功メッセージの返却
+    return ContentService.createTextOutput(JSON.stringify({ "status": "success", "message": "Grades updated successfully" }))
+                          .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    // エラーハンドリング
+    return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": error.message }))
+                          .setMimeType(ContentService.MimeType.JSON);
   }
   
+  // 正しいCORSヘッダーを含めたレスポンスを返す
+  var output = ContentService.createTextOutput(JSON.stringify({status: 'success'}));
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setHeader('Access-Control-Allow-Origin', '*');  // すべてのオリジンを許可
+  output.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');  // 許可するメソッド
+  output.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // 許可するヘッダー
+
+  return output;
+}
+
+function doOptions(e) {
+  // OPTIONSリクエスト用のレスポンス
+  var output = ContentService.createTextOutput('');
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setHeader('Access-Control-Allow-Origin', '*');  // すべてのオリジンを許可
+  output.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');  // 許可するメソッド
+  output.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // 許可するヘッダー
+  return output;
+}
