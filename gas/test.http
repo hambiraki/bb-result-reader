@@ -1,1 +1,13 @@
-https://script.google.com/macros/s/AKfycbxKZ61AjZALLav2AEpWsa2UNwV-T55UjX0PZF4-7IiD/dev
+@deployId=AKfycbzJCJ6fJpMIZKO6WktrODYsJUsg59oNbuWstSgoRbxszG3X23qg1o758Tw-SKW9IBTY8A
+@spreadsheetUrl=https://docs.google.com/spreadsheets/d/180GM9rGzcetAT_s_qkwSwetYZPIpFQyKb7gHl8Q8Cy0/edit?gid=0#gid=0
+@developerToken=
+
+### テスト
+POST https://script.google.com/macros/s/{{deployId}}/exec
+Authorization: Bearer {{developerToken}}
+Content-Type: application/json
+
+{
+    "spreadsheetUrl": "{{spreadsheetUrl}}",
+    "grades": "A+"
+}

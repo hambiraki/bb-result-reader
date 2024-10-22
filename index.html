@@ -8,197 +8,253 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
     <script src="ocr.js"></script>
+    <script src="spreadsheet.js"></script>
 </head>
 <body>
+    <header>
+        <h1>BBリザルト画面読取機</h1>
+        <div onclick="login()">ログイン</div>
+    </header>
 
-    <h1>BBリザルト画面読取機</h1>
-
-    <!-- 画像アップロード -->
-    <div class="upload-section">
-        <label for="file-upload">リザルト画面をアップロードしてください</label>        
-        <input type="file" id="file-upload" accept="image/*">
-    </div>
-
-    <!-- ドラッグ＆ドロップ＆画像表示エリア -->
-    <div id="drop-area" class="drop-area">
-        <div id="drop-text">
-            画像をここにドラッグ＆ドロップまたは選択してください
+    <div class="content">
+        <!-- 画像アップロード -->
+        <div class="upload-section">
+            <label for="file-upload">リザルト画面をアップロードしてください</label>        
+            <input type="file" id="file-upload" accept="image/*">
         </div>
-        <div id="loadingSpinner" style="display: none;">
-            <img src="image/spinner.gif" alt="Loading..." />
-        </div>
-    </div>
 
-    <!-- 勝敗 -->
-    <div class="radio-checkbox-section">
-        <div class="radio-group">
-            <label><input type="radio" name="win-team-is" value="blue">
-                青勝利
-            </label>
-            <label><input type="radio" name="win-team-is" value="red">
-                赤勝利
-            </label>
-        </div>
-        <div class="checkbox-section">
-            <div>
-                <input type="checkbox" id="isBreak">
-                <label for="isBreak">割れ</label>
+        <!-- ドラッグ＆ドロップ＆画像表示エリア -->
+        <div id="drop-area" class="drop-area">
+            <div id="drop-text">
+                画像をここにドラッグ＆ドロップまたは選択してください
             </div>
-            <div>
-                <input type="checkbox" id="isCompletely">
-                <label for="isCompletely">大差</label>
-            </div>
-            <div>
-                <input type="checkbox" id="isEarly">
-                <label for="isEarly">早割</label>
+            <div id="loadingSpinner" style="display: none;">
+                <img src="image/spinner.gif" alt="Loading..." >
             </div>
         </div>
-    </div>
 
-    <!-- プレイヤー名 MVP -->
-    <div class="table-scroll">
-        <div class="table-container">
-            <!-- 左の青プレイヤー表 -->
-            <table class="blue-table" id="blue-table">
-                <thead>
-                    <tr>
-                        <th>青プレイヤー</th>
-                        <th class="mvp-col">撃破</th>
-                        <th class="mvp-col">進行</th>
-                        <th class="mvp-col">コア</th>
-                        <th class="mvp-col">偵察</th>
-                        <th class="mvp-col">防衛</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td> </td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- 右の赤プレイヤー表 -->
-            <table class="red-table" id="red-table">
-                <thead>
-                    <tr>
-                        <th>赤プレイヤー</th>
-                        <th class="mvp-col">撃破</th>
-                        <th class="mvp-col">進行</th>
-                        <th class="mvp-col">コア</th>
-                        <th class="mvp-col">偵察</th>
-                        <th class="mvp-col">防衛</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text"></td>
-                        <td></td> <td></td> <td></td> <td></td> <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 勝敗 -->
+        <div class="radio-checkbox-section">
+            <div class="radio-group">
+                <label><input type="radio" name="win-team-is" value="blue">
+                    青勝利
+                </label>
+                <label><input type="radio" name="win-team-is" value="red">
+                    赤勝利
+                </label>
+            </div>
+            <div class="checkbox-section">
+                <div>
+                    <input type="checkbox" id="isBreak">
+                    <label for="isBreak">割れ</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="isCompletely">
+                    <label for="isCompletely">大差</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="isEarly">
+                    <label for="isEarly">早割</label>
+                </div>
+            </div>
         </div>
+
+        <!-- プレイヤー名 MVP -->
+        <div class="table-scroll">
+            <div class="table-container">
+                <!-- 左の青プレイヤー表 -->
+                <table class="blue-table" id="blue-table">
+                    <thead>
+                        <tr>
+                            <th>青プレイヤー</th>
+                            <th class="mvp-col">撃破</th>
+                            <th class="mvp-col">進行</th>
+                            <th class="mvp-col">コア</th>
+                            <th class="mvp-col">偵察</th>
+                            <th class="mvp-col">防衛</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td> </td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 右の赤プレイヤー表 -->
+                <table class="red-table" id="red-table">
+                    <thead>
+                        <tr>
+                            <th>赤プレイヤー</th>
+                            <th class="mvp-col">撃破</th>
+                            <th class="mvp-col">進行</th>
+                            <th class="mvp-col">コア</th>
+                            <th class="mvp-col">偵察</th>
+                            <th class="mvp-col">防衛</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td></td> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- スプレッドシートへの反映 -->
+        <div class="form-group">
+            <div class="battle-field">
+                <label for="battle-field">戦場</label>
+                <!-- <input list="battle-fields" id="battle-field" name="battle-field" placeholder="マップ名を入力"> -->
+                <select id="battle-field">
+                    <option value="" disabled selected>-</option>
+                    <option>ネソス</option>
+                    <option>エイオース</option>
+                    <option>ベネヴィス</option>
+                    <option>セクター</option>
+                    <option>ナローレイ</option>
+                    <option>アルマイヤ</option>
+                    <option>ホープサイド</option>
+                    <option>飛天交叉</option>
+                    <option>キニシュ</option>
+                    <option>マデルロンド</option>
+                    <option>ロンシャ</option>
+                    <option>デネブラ</option>
+                    <option>白スク</option>
+                    <option>マリナセドナ</option>
+                    <option>ラナクア</option>
+                    <option>採掘</option>
+                    <option>強攻水路</option>
+                    <option>ゲルベルク</option>
+                    <option>激丘</option>
+                    <option>マウナエレ</option>
+                    <option>ナヴァル</option>
+                    <option>エスコンダ</option>
+                    <option>ウーハイ</option>
+                    <option>ベルスクC</option>
+                    <option>D51</option>
+                    <option>バイオドーム</option>
+                    <option>メムノス</option>
+                    <option>高層</option>
+                    <option>ブロアA</option>
+
+                </select>
+            </div>
+
+            <div class="spreadsheet">
+                <label>スプレッドシート</label>
+                <div class="spreadsheet-url">
+                    <label for="spreadsheet-url">URL</label>
+                    <input type="url" id="spreadsheet-url" >
+                </div>
+                <div class="update-col">
+                    <label for="update-col">更新列</label>
+                    <input type="text" id="update-col" placeholder="修正用">
+                </div>
+            </div>
+            <input type="submit" id="send-btn" onclick="sendScore()">    
+        </div>
+
+        <!-- デバッグ用 -->
+        <div id="output"></div>
+        <div id="croppedImagesContainer"></div> <!-- 切り出した画像の表示領域 -->
     </div>
 
-    <!-- スプレッドシートへの反映 -->
-    <div>
-        <label for="spreadsheet-url">スプレッドシートURL</label>        
-        <input type="text" id="spreadsheet-url">
-        <button id="load-btn" class="load-btn" onclick="aggregate()">スプレッドシート反映(工事中)</button>
-    </div>
-    <div id="output"></div>
-    <div id="croppedImagesContainer"></div> <!-- 切り出した画像の表示領域 -->
     <footer>
         BORDER BREAK &copy; SEGA
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
