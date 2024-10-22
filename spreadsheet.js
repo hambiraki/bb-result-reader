@@ -5,6 +5,10 @@ const CLIENT_ID = "439336057984-01tr2f1abg2n349bkt4035sj4jlg6lg7.apps.googleuser
 const SCOPE = 'https://www.googleapis.com/auth/spreadsheets'; // スプレッドシートへのアクセスを許可するスコープ
 const AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
+// GASのURLを指定
+const deployId = "AKfycbxKZ61AjZALLav2AEpWsa2UNwV-T55UjX0PZF4-7IiD";
+const SCRIPT_ID = "AKfycbz1rpPkEzaw6OWIKt0lTB_wuLEhMtIMANdsrrlMuvH2jGEON7o9cw6OWuignbwL7BS2Rg";
+const gasUrl = `https://script.googleapis.com/v1/scripts/${deployId}:run`;
 
 function login() {
     const authUrl = `${AUTH_URL}`
@@ -14,16 +18,6 @@ function login() {
      + `&scope=${encodeURIComponent(SCOPE)}`;
     //  + `&access_type=offline`;
      window.location.href = authUrl;
-}
-
-function redirectToGoogleOAuth() {
-    const authUrl = `${AUTH_URL}`
-     + `?client_id=${CLIENT_ID}`
-     + `&redirect_uri=${encodeURIComponent(window.location.origin)}` 
-     + `&response_type=token`
-     + `&scope=${encodeURIComponent(SCOPE)}`;
-    //  + `&access_type=offline`;
-    window.open(authUrl, "_blank");
 }
 
 function getAccessToken() {
@@ -36,40 +30,14 @@ function getAccessToken() {
     return undefined;
 }
 
-// 4. 認証コードをキャプチャしてアクセストークンを取得
-async function handleAuthCallback() {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    if (code) {
-        try {
-            const accessToken = await getAccessToken(code);
-            console.log('Access Token:', accessToken);
-            // アクセストークンを使ってGAS APIなどを呼び出す
-        } catch (error) {
-            console.error('Error during authentication:', error);
-        }
-    }
-}
-
-// ページが読み込まれたときに、認証コードがあれば処理する
-window.onload = () => {
-    handleAuthCallback();
-};
-
 function sendScore(){
-    // GASのURLを指定
-    const deployId = "AKfycbxZq_kdOldm5gkCe_H3JgLyxSigtmwoKbscHCy_lu4ehwkA_CRaQjbpnXuKDxq9rkSC";
-    const gasUrl = `https://script.googleapis.com/v1/scripts/AKfycbzR7x9QkrHpk8zvFBE7dnK_aDqSt5IV7-i4t9ZU4RzchCPu_3rakL0jQ5iaGgXW56Va_A:run`;
-
     const access_token = getAccessToken();
     console.log(access_token);
 
-    // POSTするデータを設定
-    const postData = {
-        spreadsheetUrl: "https://docs.google.com/spreadsheets/d/180GM9rGzcetAT_s_qkwSwetYZPIpFQyKb7gHl8Q8Cy0/edit?gid=0#gid=0",
-        grades: "テスト太郎"
-    };
-    
+    // request parameterを画面から収集
+    const spreadsheetURL = document.querySelector('#spreadsheet-url').value;
+    const allResult = aggregate();
+
     // リクエストの設定
     const requestOptions = {
         method: "POST",
@@ -77,7 +45,14 @@ function sendScore(){
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
         },
-        body: postData
+        body: JSON.stringify({
+            function: "editSpreadSheet",
+            parameters: [spreadsheetURL, allResult],
+            //     "https://docs.google.com/spreadsheets/d/1gf2aCn4eP50x3hI8ap5UFNdws1Bw0i1wurJ0WGPfoNI/edit?gid=0#gid=0",
+            //     "半開き", "hoge",
+            // ],
+            devMode: true,
+        })
     };
     
     // fetch APIを使ってリクエストを送信
@@ -111,7 +86,10 @@ function sendScore(){
 
 
 
-// 名前:勝敗(MVP)に変形する
+/**
+ * 名前:勝敗(MVP)に変形する
+ * @returns {{name:string, score:string}[]}
+ */
 function aggregate() {
     // 勝敗, 割れ, 大差, 早割
     const WIN_LOSE_TYPE = {
@@ -143,7 +121,12 @@ function aggregate() {
     const blueResult = WIN_LOSE_TYPE[[isBlueWin, isBreak, isCompletely, isEarly].toString()];
     const redResult = WIN_LOSE_TYPE[[isRedWin, isBreak, isCompletely, isEarly].toString()];
 
-    // DOMからスコアを集計
+    /**
+     *  DOMからスコアを集計
+     * @param {string} teamResult
+     * @param {NodeListOf<Element>} scoreTable
+     * @returns {{name:string, score:string}[]}
+     */
     function aggregateScoreTable(teamResult, scoreTable) {
         return Array.from(scoreTable).map((row) => {
             const name = row.querySelector('td:nth-child(1) input');
@@ -163,12 +146,14 @@ function aggregate() {
             }
         });
     }
-    console.log(aggregateScoreTable(
-        blueResult,
-        document.querySelectorAll('.blue-table tbody tr'),
-    ));
-    console.log(aggregateScoreTable(
-        redResult,
-        document.querySelectorAll('.red-table tbody tr'),
-    ));
+    return [
+        ... aggregateScoreTable(
+            blueResult,
+            document.querySelectorAll('.blue-table tbody tr'),
+        ),
+        ... aggregateScoreTable(
+            redResult,
+            document.querySelectorAll('.red-table tbody tr'),
+        )
+    ];
 }
