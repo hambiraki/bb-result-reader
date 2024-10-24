@@ -9,7 +9,7 @@ const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const deployId = "AKfycbxKZ61AjZALLav2AEpWsa2UNwV-T55UjX0PZF4-7IiD";
 const SCRIPT_ID = "AKfycbz1rpPkEzaw6OWIKt0lTB_wuLEhMtIMANdsrrlMuvH2jGEON7o9cw6OWuignbwL7BS2Rg";
 const gasUrl = `https://script.googleapis.com/v1/scripts/${deployId}:run`;
-
+// const gasUrl = "https://script.googleapis.com/v1/scripts/AKfycbzUuoDNA097LEIOSJtpfR_nGQbkH5MYKLk3h4Jut29hpycdcIqv-icTcFn3_tTMQjNFNg:run";
 function login() {
     const authUrl = `${AUTH_URL}`
      + `?client_id=${CLIENT_ID}`
@@ -36,7 +36,9 @@ function sendScore(){
 
     // request parameterを画面から収集
     const spreadsheetURL = document.querySelector('#spreadsheet-url').value;
-    const allResult = aggregate();
+    const battleField = document.querySelector("#battle-field").value;
+    const correctedColumn = document.querySelector("#corrected-column").value;
+    const playersScore = aggregate();
 
     // リクエストの設定
     const requestOptions = {
@@ -47,7 +49,7 @@ function sendScore(){
         },
         body: JSON.stringify({
             function: "editSpreadSheet",
-            parameters: [spreadsheetURL, allResult],
+            parameters: [spreadsheetURL, battleField, correctedColumn, playersScore],
             //     "https://docs.google.com/spreadsheets/d/1gf2aCn4eP50x3hI8ap5UFNdws1Bw0i1wurJ0WGPfoNI/edit?gid=0#gid=0",
             //     "半開き", "hoge",
             // ],
