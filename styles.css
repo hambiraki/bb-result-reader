@@ -187,6 +187,10 @@ td {
     margin: 0;  /* セル内のマージンを0にする */
 }
 
+.update-fail {
+    background-color: yellow;
+}
+
 .table-container {
     display: flex; /* 水平スクロールを維持するためにflexを使用 */
     overflow-x: auto; /* 横スクロールを許可 */
@@ -205,8 +209,9 @@ td {
         flex-direction: column; /* 縦に並べる */
     }
 /* } */
-#update-col{
-    width: 48px;
+#corrected-column{
+    width: 32px;
+    background-color: #e0e0e0;
 }
 
 body {

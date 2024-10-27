@@ -9,7 +9,7 @@ const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const deployId = "AKfycbxKZ61AjZALLav2AEpWsa2UNwV-T55UjX0PZF4-7IiD";
 const SCRIPT_ID = "AKfycbz1rpPkEzaw6OWIKt0lTB_wuLEhMtIMANdsrrlMuvH2jGEON7o9cw6OWuignbwL7BS2Rg";
 const gasUrl = `https://script.googleapis.com/v1/scripts/${deployId}:run`;
-
+// const gasUrl = "https://script.googleapis.com/v1/scripts/AKfycbzUuoDNA097LEIOSJtpfR_nGQbkH5MYKLk3h4Jut29hpycdcIqv-icTcFn3_tTMQjNFNg:run";
 function login() {
     const authUrl = `${AUTH_URL}`
      + `?client_id=${CLIENT_ID}`
@@ -30,13 +30,15 @@ function getAccessToken() {
     return undefined;
 }
 
-function sendScore(){
+async function sendScore(){
     const access_token = getAccessToken();
     console.log(access_token);
 
     // request parameterを画面から収集
     const spreadsheetURL = document.querySelector('#spreadsheet-url').value;
-    const allResult = aggregate();
+    const battleField = document.querySelector("#battle-field").value;
+    const correctedColumn = document.querySelector("#corrected-column").value;
+    const playersScore = aggregate();
 
     // リクエストの設定
     const requestOptions = {
@@ -47,44 +49,61 @@ function sendScore(){
         },
         body: JSON.stringify({
             function: "editSpreadSheet",
-            parameters: [spreadsheetURL, allResult],
-            //     "https://docs.google.com/spreadsheets/d/1gf2aCn4eP50x3hI8ap5UFNdws1Bw0i1wurJ0WGPfoNI/edit?gid=0#gid=0",
-            //     "半開き", "hoge",
-            // ],
+            parameters: [spreadsheetURL, battleField, correctedColumn, playersScore],
             devMode: true,
         })
     };
     
     // fetch APIを使ってリクエストを送信
-    fetch(gasUrl, requestOptions)
-        .then(response => response.json())  // レスポンスをJSON形式で受け取る
-        .then(data => {
-            console.log("GASからのレスポンス:", data);
+    const errMsgCallingGAS = "GAS呼出し時にエラーが発生しました: ";
+    const errMsgExecuteGAS = "GAS関数でエラーが発生しました: ";
+    const errMsgGAS = "GASでエラーが発生しました: ";
+    try{
+        const response = await fetch(gasUrl, requestOptions).then(response => response.json());
+        if( response["done"] !== true || response["response"] == undefined){
+            console.error(errMsgCallingGAS, response);
+            return;
+        }
+        const gasResponse = response["response"];
+        if(gasResponse["@type"] !== "type.googleapis.com/google.apps.script.v1.ExecutionResponse"){
+            console.error(errMsgCallingGAS, gasResponse);
+            return;
+        }
+        const gasResult = gasResponse["result"];
+        console.log(gasResult);
+        if(gasResult["status"] !== "success"){
+            console.error(errMsgExecuteGAS, gasResult);
+            return;
+        }
+        document.querySelector("#corrected-column").value = gasResult["updateColumn"];
+        // 更新に失敗したプレイヤーを警告する
+        const playersCell = [
+            ...Array.from(document.querySelectorAll('.blue-table tbody tr')),
+            ...Array.from(document.querySelectorAll('.red-table tbody tr'))
+        ];        
+        gasResult["playersUpdated"].forEach((player,index) =>{
+            if(! player.wasUpdated){
+                playerCell = playersCell[index];
+                playerCell.classList.add("update-fail");
+            }
         })
-        .catch(error => {
-            console.error("エラーが発生しました:", error);
-        });
+    } catch(error) {
+        console.error(errMsgGAS, error);
+        return;
+    }
 }
 
-// function authenticate() {
-//     return gapi.auth2.getAuthInstance()
-//         .signIn({scope: "https://www.googleapis.com/auth/spreadsheets"})
-//         .then(() => console.log("Sign-in successful"))
-//         .catch(err => console.error("Error signing in", err));
-// }
-
-// function loadClient() {
-//     gapi.client.setApiKey("YOUR_API_KEY");
-//     return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
-//         .then(() => console.log("GAPI client loaded for API"))
-//         .catch(err => console.error("Error loading GAPI client for API", err));
-// }
-
-// gapi.load("client:auth2", () => {
-//     gapi.auth2.init({client_id: clientId});
-// });
-
-
+/**
+ * 更新に失敗したプレイヤーを警告する
+ * 名前セルの背景色を変更
+ * @param {string} playerName
+ */
+function alertUpdateFailPlayer(playerName){
+    [
+        ...Array.from(document.querySelectorAll('.blue-table tbody tr')),
+        ...Array.from(document.querySelectorAll('.red-table tbody tr'))
+    ]
+}
 
 /**
  * 名前:勝敗(MVP)に変形する
