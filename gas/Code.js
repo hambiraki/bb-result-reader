@@ -51,30 +51,40 @@ function editSpreadSheet(sheetUrl, battleField, correctedCol, playersScore){
     const updateColumn = (correctedCol === "")
       ? sheet.getLastColumn() + 1 
       : Number(correctedCol);
-    // 更新列の戦場を更新
-    sheet.getRange(1,updateColumn).setValue(battleField);
 
     // 名前がある行をまとめる
     const nameColumn = sheet.getRange(1, 2, sheet.getLastRow()).getValues();
-    const playerRankMap = new Map();
-    for(let [row, nameCol] of nameColumn.entries()){
-      playerRankMap.set(nameCol[0],row);
+    const playerRankMap = new Map(
+      nameColumn.map((nameCol, row) => [nameCol[0], row])
+    );
+
+    let playersStatus = [];
+    for(let player of playersScore){
+      let status = true;
+      const updateRow = playerRankMap.get(player.name);
+      if( player.name === "" ) {
+        status = true;
+      } else if(updateRow === undefined){
+        status = false;
+      } else {
+        sheet.getRange(updateRow + 1, updateColumn).setValue(player.score);
+        status = true;
+      }
+      playersStatus.push({"name":player.name, "wasUpdated":status})
     }
 
-    for(let player of playersScore){
-      if( player.name == "" ) continue;
-      const updateRow = playerRankMap.get(player.name);
-      if(updateRow === undefined){
-        return { "status": "error", "message": `${player.name}さんは未登録です。` };
-      }  
-      sheet.getRange(updateRow + 1, updateColumn).setValue(player.score);
-    }
+    // 更新列の戦場を更新
+    sheet.getRange(1,updateColumn).setValue(battleField);
 
     // 成功メッセージの返却
-    return { "status": "success", "message": "Grades updated successfully" };
+    return {
+      "status": "success",
+      "updateColumn": updateColumn,
+      "playersUpdated": playersStatus
+    };
   } catch (error) {
     // エラーハンドリング
-    return { "status": "error", "message": error.message };
+    return { "status": "error", "message": error.message, "stack":error.stack };
   }
 }
 
