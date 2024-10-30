@@ -11,6 +11,7 @@ const SCRIPT_ID = "AKfycbz1rpPkEzaw6OWIKt0lTB_wuLEhMtIMANdsrrlMuvH2jGEON7o9cw6OW
 const gasUrl = `https://script.googleapis.com/v1/scripts/${deployId}:run`;
 // const gasUrl = "https://script.googleapis.com/v1/scripts/AKfycbzUuoDNA097LEIOSJtpfR_nGQbkH5MYKLk3h4Jut29hpycdcIqv-icTcFn3_tTMQjNFNg:run";
 function login() {
+    PageInputs.fromPage().toSessionstorage();
     const authUrl = `${AUTH_URL}`
      + `?client_id=${CLIENT_ID}`
      + `&redirect_uri=${encodeURIComponent(window.location.origin)}` 
