@@ -1,8 +1,16 @@
 /**
  * addEventListenerをするjavascriptを記載する。
  * 基本的にはhtmlに呼び出すjavascriptを記載するが、
- * dragとMVPのラジオボタンじみた挙動はhtmlに記載すると煩雑なのでここに記載する。
+ * dragとMVPのラジオボタンに似た動きはhtmlに記載すると煩雑なのでここに記載する。
  */
+
+// 認証などによるリダイレクトで入力内容を保存する
+window.onload = function(){
+    const savedInput = PageInputs.fromSessionStorage();
+    if(savedInput !== undefined){
+        PageInputs.fromSessionStorage().toPage();
+    }
+}
 
 //// ファイル選択またはドラッグ&ドロップした時にhandleImageUploadを実行する。
 document.getElementById('file-upload').addEventListener('change', handleImageUpload);
