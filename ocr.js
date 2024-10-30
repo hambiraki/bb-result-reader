@@ -37,7 +37,11 @@ async function extractPlayerNames(img) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const croppedImagesContainer = document.getElementById('croppedImagesContainer');
-    croppedImagesContainer.innerHTML = ""; // クリア
+    // クリア処理
+    // 画像のクリア
+    croppedImagesContainer.innerHTML = "";
+    // 入力欄のクリア
+    clearInput();
 
     // キャンバスのサイズは固定
     console.log(`img.width:${img.width}, img.height:${img.height}`);
@@ -118,5 +122,14 @@ async function extractPlayerNames(img) {
     loadingSpinner.style.display = "none";
 }
 
-
+function clearInput(){
+    const blankMvpPlayers = new Array(MAX_TEAM_MEMBER).fill({"name":"", "mvp":["","","","",""]});
+    const nowInput = PageInputs.fromPage();
+    const nextInput = new PageInputs(
+        false, false, false, false, false,
+        blankMvpPlayers, blankMvpPlayers,
+        nowInput.spreadsheetURL, nowInput.battleField, ""
+    )
+    nextInput.toPage();
+}
 

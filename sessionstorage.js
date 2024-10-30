@@ -131,10 +131,10 @@ function aggregateScoreTable(scoreTable) {
 function loadScoreTable(scoreTable, mvpPlayers){
     const scoreRows = Array.from(scoreTable);
     if(scoreRows.length !== MAX_TEAM_MEMBER){
-        alert(`画面上の表が${MAX_TEAM_MEMBER}行ではありません。`);
+        throw Error(`画面上の表が${MAX_TEAM_MEMBER}行ではありません。`);
     }
     if(mvpPlayers.length !== MAX_TEAM_MEMBER){
-        alert("SessionStorage内のデータが不正です。");
+        throw Error(`プレイヤーMVPデータが${MAX_TEAM_MEMBER}行ではありません。`);
     }
     for(let index=0; index<MAX_TEAM_MEMBER; index++){
         const row = scoreRows[index];
