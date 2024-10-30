@@ -16,7 +16,6 @@ function login() {
      + `&redirect_uri=${encodeURIComponent(window.location.origin)}` 
      + `&response_type=token`
      + `&scope=${encodeURIComponent(SCOPE)}`;
-    //  + `&access_type=offline`;
      window.location.href = authUrl;
 }
 
@@ -33,6 +32,10 @@ function getAccessToken() {
 async function sendScore(){
     const access_token = getAccessToken();
     console.log(access_token);
+    if(access_token == undefined){
+        login();
+        return;
+    }
 
     // request parameterを画面から収集
     const spreadsheetURL = document.querySelector('#spreadsheet-url').value;

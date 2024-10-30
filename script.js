@@ -1,7 +1,7 @@
 /**
  * addEventListenerをするjavascriptを記載する。
  * 基本的にはhtmlに呼び出すjavascriptを記載するが、
- * dragとMVPのラジオボタンじみた挙動はhtmlに記載すると煩雑なのでここに記載する。
+ * dragとMVPのラジオボタンに似た動きはhtmlに記載すると煩雑なのでここに記載する。
  */
 
 //// ファイル選択またはドラッグ&ドロップした時にhandleImageUploadを実行する。
