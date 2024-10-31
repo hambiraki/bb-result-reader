@@ -34,7 +34,7 @@ async function sendScore(){
     const access_token = getAccessToken();
     console.log(access_token);
     if(access_token == undefined){
-        login();
+        alert("ログインしてください。")
         return;
     }
 
@@ -64,7 +64,13 @@ async function sendScore(){
     const errMsgGAS = "GASでエラーが発生しました: ";
     try{
         const response = await fetch(gasUrl, requestOptions).then(response => response.json());
+
         if( response["done"] !== true || response["response"] == undefined){
+            if(response.error.code === 401 
+                && response.error.status === "UNAUTHENTICATED"){
+                alert("再度ログインしてください。認証の期限は1時間です。");
+                return;
+            }
             console.error(errMsgCallingGAS, response);
             return;
         }
@@ -84,29 +90,21 @@ async function sendScore(){
         const playersCell = [
             ...Array.from(document.querySelectorAll('.blue-table tbody tr')),
             ...Array.from(document.querySelectorAll('.red-table tbody tr'))
-        ];        
+        ];
+        const classUpdateFail = "update-fail";
+        playersCell.forEach(playerCell => {
+            playerCell.classList.remove(classUpdateFail);
+        });
         gasResult["playersUpdated"].forEach((player,index) =>{
             if(! player.wasUpdated){
                 playerCell = playersCell[index];
-                playerCell.classList.add("update-fail");
+                playerCell.classList.add(classUpdateFail);
             }
-        })
+        });
     } catch(error) {
         console.error(errMsgGAS, error);
         return;
     }
-}
-
-/**
- * 更新に失敗したプレイヤーを警告する
- * 名前セルの背景色を変更
- * @param {string} playerName
- */
-function alertUpdateFailPlayer(playerName){
-    [
-        ...Array.from(document.querySelectorAll('.blue-table tbody tr')),
-        ...Array.from(document.querySelectorAll('.red-table tbody tr'))
-    ]
 }
 
 /**
