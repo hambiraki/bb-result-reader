@@ -1,20 +1,3 @@
-function doGet(e){
-  
-  return  ContentService.createTextOutput(JSON.stringify({ "hello": "world3" }))
-  // return JSON.stringify({ "hello": "world3" });
-}
-
-function doPost(e) {
-   var output = ContentService.createTextOutput(e.postData.contents);
-  // // 正しいCORSヘッダーを含めたレスポンスを返す
-  // var output = editSpreadSheet(e);
-  output.setMimeType(ContentService.MimeType.JSON);
-  output.setHeader('Access-Control-Allow-Origin', '*');  // すべてのオリジンを許可
-  output.setHeader('Access-Control-Allow-Methods', 'POST');  // 許可するメソッド
-  output.setHeader('Access-Control-Allow-Headers', '*');  // 許可するヘッダー
-
-  return output;
-}
 /**
  * spreadsheetに反映
  * @param {string} sheetUrl
@@ -55,7 +38,12 @@ function editSpreadSheet(sheetUrl, battleField, correctedCol, playersScore){
     // 名前がある行をまとめる
     const nameColumn = sheet.getRange(1, 2, sheet.getLastRow()).getValues();
     const playerRankMap = new Map(
-      nameColumn.map((nameCol, row) => [nameCol[0], row])
+      nameColumn.map((nameCol, row) => {
+        // 別名あるプレイヤーは○○(××,△△)の形で書かれている
+        // filterで""を除去(末尾の)の後ろに""が発生してしまう)
+        const nameList = nameCol[0].split(/[,\(\)]/).filter(val => Boolean(val));
+        return nameList.map(name => [name, row])
+      }).flat()
     );
 
     let playersStatus = [];
@@ -86,16 +74,4 @@ function editSpreadSheet(sheetUrl, battleField, correctedCol, playersScore){
     // エラーハンドリング
     return { "status": "error", "message": error.message, "stack":error.stack };
   }
-}
-
-
-// preflightリクエストに対応したいこちらのメソッドですが、GASはPOSTとGETしか対応していません
-function doOptions(e) {
-  // OPTIONSリクエスト用のレスポンス
-  var output = ContentService.createTextOutput('');
-  output.setMimeType(ContentService.MimeType.JSON);
-  output.setHeader('Access-Control-Allow-Origin', '*');  // すべてのオリジンを許可
-  output.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');  // 許可するメソッド
-  output.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // 許可するヘッダー
-  return output;
 }
