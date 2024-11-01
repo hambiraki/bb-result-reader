@@ -5,15 +5,29 @@ body {
 }
 
 header {
-    text-align: center; /* 中央揃え */
-    font-size: 2em; /* フォントサイズ */
-    margin: 0; /* マージンをリセット */
-    padding: 20px 0; /* 上下の余白 */
-    background-color: #333; /* フッターと同じ背景色 */
-    color: white; /* 文字色 */
-    border-radius: 0 0 10px 10px; /* 下部だけ角を丸くする */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 0 0 10px 10px;
 }
 
+header h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+header div {
+    background-color: #555;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.8em;
+}
 input {
     font-size: 16px;
 }
