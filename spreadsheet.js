@@ -5,11 +5,14 @@ const CLIENT_ID = "439336057984-01tr2f1abg2n349bkt4035sj4jlg6lg7.apps.googleuser
 const SCOPE = 'https://www.googleapis.com/auth/spreadsheets'; // スプレッドシートへのアクセスを許可するスコープ
 const AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
-// GASのURLを指定
-const deployId = "AKfycbxKZ61AjZALLav2AEpWsa2UNwV-T55UjX0PZF4-7IiD";
-const SCRIPT_ID = "AKfycbz1rpPkEzaw6OWIKt0lTB_wuLEhMtIMANdsrrlMuvH2jGEON7o9cw6OWuignbwL7BS2Rg";
-const gasUrl = `https://script.googleapis.com/v1/scripts/${deployId}:run`;
-// const gasUrl = "https://script.googleapis.com/v1/scripts/AKfycbzUuoDNA097LEIOSJtpfR_nGQbkH5MYKLk3h4Jut29hpycdcIqv-icTcFn3_tTMQjNFNg:run";
+
+async function getGasUrl(){
+    // GASのURLを指定
+    const config = await fetch("config.json").then(response => response.json());
+    const deployId = config.deployId;
+    return `https://script.googleapis.com/v1/scripts/${deployId}:run`;
+}
+
 function login() {
     PageInputs.fromPage().toSessionstorage();
     const authUrl = `${AUTH_URL}`
@@ -63,6 +66,7 @@ async function sendScore(){
     const errMsgExecuteGAS = "GAS関数でエラーが発生しました: ";
     const errMsgGAS = "GASでエラーが発生しました: ";
     try{
+        const gasUrl = await getGasUrl();
         const response = await fetch(gasUrl, requestOptions).then(response => response.json());
 
         if( response["done"] !== true || response["response"] == undefined){
