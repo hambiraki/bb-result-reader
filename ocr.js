@@ -64,17 +64,24 @@ async function extractPlayerNames(img) {
         const data = imageData.data;
         for (let i = 0; i < data.length; i += 4) {
             const avg = (data[i] + data[i + 1] + data[i + 2]) / 3; // RGB値の平均を計算
-            data[i] = data[i + 1] = data[i + 2] = avg > threshold ? 255 : 0; // 2値化
+            data[i] = data[i + 1] = data[i + 2] = avg > threshold ? 0 : 255; // 2値化
         }
         croppedCtx.putImageData(imageData, 0, 0);
-
+                    // 切り出した画像を表示
+                    const croppedImageElement = new Image();
+                    croppedImageElement.src = croppedCanvas.toDataURL();
+                    croppedImageElement.className = 'cropped-image';
+                    croppedImagesContainer.appendChild(croppedImageElement);
         // OCRによるテキスト認識
         const inputElement = playerNameCell.querySelector('input[type="text"]');
         try {
             const ocr_result = await Tesseract.recognize(
                 croppedCanvas.toDataURL(),
-                'jpn',
-                { logger: m => console.log(m) }
+                'naptha_jpn_best',
+                {
+                    langPath: "./tessdata",
+                    logger: m => console.log(m),
+                }
             );
             const name = ocr_result.data.text.trim().replaceAll(" ","");
             inputElement.value = name;
@@ -114,8 +121,8 @@ async function extractPlayerNames(img) {
     const loadingSpinner = document.getElementById("loadingSpinner");
     loadingSpinner.style.display = "flex";
 
-    const blueTeam = await readNameWithOCR(bluePlayerRegions_px, 128, "blue-table");
-    const redTeam = await readNameWithOCR(redPlayerRegions_px, 64, "red-table");
+    const blueTeam = await readNameWithOCR(bluePlayerRegions_px, 64, "blue-table");
+    const redTeam = await readNameWithOCR(redPlayerRegions_px, 36, "red-table");
     
     // ローディング表示を終了
     console.log("完了");
@@ -131,5 +138,9 @@ function clearInput(){
         nowInput.spreadsheetURL, nowInput.battleField, ""
     )
     nextInput.toPage();
+    // 更新に失敗したプレイヤーの警告を初期化
+    const playersCell = Array.from(document.querySelectorAll('tbody tr'));
+    playersCell.forEach(playerCell => {
+        playerCell.classList.remove("update-fail");
+    });
 }
-
