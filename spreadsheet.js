@@ -11,9 +11,10 @@ const gasUrl = `https://script.googleapis.com/v1/scripts/${config.deployId}:run`
 
 function login() {
     PageInputs.fromPage().toSessionstorage();
+    const redirect_uri = window.location.origin+window.location.pathname.replace(/\/+$/, "");
     const authUrl = `${AUTH_URL}`
      + `?client_id=${CLIENT_ID}`
-     + `&redirect_uri=${encodeURIComponent(window.location.origin)}` 
+     + `&redirect_uri=${encodeURIComponent(redirect_uri)}` 
      + `&response_type=token`
      + `&scope=${encodeURIComponent(SCOPE)}`;
      window.location.href = authUrl;
